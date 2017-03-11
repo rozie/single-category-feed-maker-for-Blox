@@ -10,9 +10,7 @@ def main():
     args = parse_arguments()
     url = args.url
     r = requests.get(url)
-    data = r.text
-
-    soup = BeautifulSoup(data)
+    soup = BeautifulSoup(r.content, 'lxml-xml')
 
     # head
     print('<?xml version="1.0" encoding="utf-8"?>')
@@ -21,7 +19,7 @@ def main():
     print soup.channel.title
     print soup.channel.link
     print soup.channel.description
-    print soup.channel.lastbuilddate
+    print soup.channel.lastBuildDate
 
     # body
     for item in soup.findAll("item"):
